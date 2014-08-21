@@ -9,6 +9,6 @@ packs=[
 	'libgtkmm-3.0-dev', # for gtkmm that we use for the gui
 ]
 
-args=['sudo','apt-get','install']
+args=['sudo','apt-get','install','--assume-yes']
 args.extend(packs)
 subprocess.check_call(args)
