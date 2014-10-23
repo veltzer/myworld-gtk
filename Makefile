@@ -2,9 +2,7 @@
 # parameters #
 ##############
 # do you want to show the commands executed ?
-# Since we are using ?= for assignment it means that you can just
-# set this from the command line and avoid changing the makefile...
-DO_MKDBG?=0
+DO_MKDBG:=0
 # version of gtkmm used
 GTKMM_VERSION:=3.0
 # version of sigcpp used
