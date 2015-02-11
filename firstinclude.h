@@ -12,7 +12,7 @@
 #endif // _GNU_SOURCE
 
 #ifndef __USE_GNU
-#define __USE_GNU // Needed to get REG_EIP from ucontext.h
+#define __USE_GNU // needed to get REG_EIP from ucontext.h
 #endif // __USE_GNU
 
 #endif /* !__firstinclude_h */
