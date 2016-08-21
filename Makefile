@@ -7,6 +7,8 @@ DO_MKDBG:=0
 GTKMM_VERSION:=3.0
 # version of sigcpp used
 SIGCPP_VERSION=2.0
+# do tools?
+DO_TOOLS:=1
 
 ###############
 # definitions #
@@ -23,6 +25,11 @@ Q:=@
 #.SILENT:
 endif # DO_MKDBG
 
+ALL_DEPS:=
+ifeq ($(DO_TOOLS),1)
+ALL_DEPS+=tools.stamp
+endif # DO_TOOLS
+
 #########
 # rules #
 #########
@@ -30,7 +37,12 @@ endif # DO_MKDBG
 all: $(ALL)
 	$(info doing [$@])
 
-main.elf: main.cc
+tools.stamp:
+	$(info doing [$@])
+	$(Q)templar_cmd install_deps
+	$(Q)make_helper touch-mkdir $@
+
+main.elf: main.cc $(ALL_DEPS)
 	$(info doing [$@])
 	$(Q)g++ -I. $(EXTRA_COMPILE_CMDS) $< -o $@ $(EXTRA_LINK_CMDS)
 
@@ -39,6 +51,8 @@ debug:
 	$(info doing [$@])
 	$(info EXTRA_COMPILE_CMDS is $(EXTRA_COMPILE_CMDS))
 	$(info EXTRA_LINK_CMDS is $(EXTRA_LINK_CMDS))
+	$(info ALL is $(ALL))
+	$(info ALL_DEPS is $(ALL_DEPS))
 
 .PHONY: clean
 clean:
