@@ -35,7 +35,7 @@ endif # DO_TOOLS
 #########
 .PHONY: all
 all: $(ALL)
-	$(info doing [$@])
+	@true
 
 tools.stamp:
 	$(info doing [$@])
