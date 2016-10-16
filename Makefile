@@ -25,9 +25,9 @@ Q:=@
 #.SILENT:
 endif # DO_MKDBG
 
-ALL_DEPS:=
+ALL_DEP:=
 ifeq ($(DO_TOOLS),1)
-ALL_DEPS+=tools.stamp
+ALL_DEP+=tools.stamp
 endif # DO_TOOLS
 
 #########
@@ -42,7 +42,7 @@ tools.stamp:
 	$(Q)templar_cmd install_deps
 	$(Q)make_helper touch-mkdir $@
 
-main.elf: main.cc $(ALL_DEPS)
+main.elf: main.cc $(ALL_DEP)
 	$(info doing [$@])
 	$(Q)g++ -I. $(EXTRA_COMPILE_CMDS) $< -o $@ $(EXTRA_LINK_CMDS)
 
@@ -52,7 +52,7 @@ debug:
 	$(info EXTRA_COMPILE_CMDS is $(EXTRA_COMPILE_CMDS))
 	$(info EXTRA_LINK_CMDS is $(EXTRA_LINK_CMDS))
 	$(info ALL is $(ALL))
-	$(info ALL_DEPS is $(ALL_DEPS))
+	$(info ALL_DEP is $(ALL_DEP))
 
 .PHONY: clean
 clean:
