@@ -1,2 +1,6 @@
 /*.elf
 /*.stamp
+# python related
+__pycache__
+*.pyo
+*.pyc

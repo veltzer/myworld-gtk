@@ -1,4 +1,0 @@
----
-packages:
-        - name: libgtkmm-3.0-dev
-          reason: for gtkmm that we use for the gui
