@@ -37,9 +37,8 @@ endif # DO_TOOLS
 all: $(ALL)
 	@true
 
-tools.stamp: templardefs/deps.py
+tools.stamp: config/deps.py
 	$(info doing [$@])
-	$(Q)templar install_deps
 	$(Q)pymakehelper touch_mkdir $@
 
 main.elf: main.cc $(ALL_DEP)
