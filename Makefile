@@ -9,6 +9,8 @@ GTKMM_VERSION:=3.0
 SIGCPP_VERSION=2.0
 # do tools?
 DO_TOOLS:=1
+# do you want dependency on the Makefile itself ?
+DO_ALLDEP:=1
 
 ###############
 # definitions #
@@ -25,9 +27,13 @@ Q:=@
 #.SILENT:
 endif # DO_MKDBG
 
-ALL_DEP:=
+# dependency on the makefile itself
+ifeq ($(DO_ALLDEP),1)
+.EXTRA_PREREQS+=$(foreach mk, ${MAKEFILE_LIST},$(abspath ${mk}))
+endif
+
 ifeq ($(DO_TOOLS),1)
-ALL_DEP+=tools.stamp
+.EXTRA_PREREQS+=tools.stamp
 endif # DO_TOOLS
 
 #########
@@ -41,7 +47,7 @@ tools.stamp: config/deps.py
 	$(info doing [$@])
 	$(Q)pymakehelper touch_mkdir $@
 
-main.elf: main.cc $(ALL_DEP)
+main.elf: main.cc
 	$(info doing [$@])
 	$(Q)g++ -I. $(EXTRA_COMPILE_CMDS) $< -o $@ $(EXTRA_LINK_CMDS)
 
@@ -51,7 +57,6 @@ debug:
 	$(info EXTRA_COMPILE_CMDS is $(EXTRA_COMPILE_CMDS))
 	$(info EXTRA_LINK_CMDS is $(EXTRA_LINK_CMDS))
 	$(info ALL is $(ALL))
-	$(info ALL_DEP is $(ALL_DEP))
 
 .PHONY: clean
 clean:
