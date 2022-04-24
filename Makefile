@@ -54,7 +54,7 @@ $(TOOLS): config/deps.py packages.txt
 
 main.elf: main.cc
 	$(info doing [$@])
-	$(Q)g++ -I. $(EXTRA_COMPILE_CMDS) $< -o $@ $(EXTRA_LINK_CMDS)
+	$(Q)g++ -I. $(shell pkg-config --cflags gtkmm-$(GTKMM_VERSION) sigc++-$(SIGCPP_VERSION)) $< -o $@ $(shell pkg-config --libs gtkmm-$(GTKMM_VERSION) sigc++-$(SIGCPP_VERSION)) 
 # to find all included header files...
 # $(Q)g++ -H -I. $(EXTRA_COMPILE_CMDS) $< -o $@ $(EXTRA_LINK_CMDS)
 
