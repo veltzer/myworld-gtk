@@ -55,6 +55,8 @@ $(TOOLS): config/deps.py packages.txt
 main.elf: main.cc
 	$(info doing [$@])
 	$(Q)g++ -I. $(EXTRA_COMPILE_CMDS) $< -o $@ $(EXTRA_LINK_CMDS)
+# to find all included header files...
+# $(Q)g++ -H -I. $(EXTRA_COMPILE_CMDS) $< -o $@ $(EXTRA_LINK_CMDS)
 
 .PHONY: debug
 debug:
