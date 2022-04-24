@@ -1,1 +1,1 @@
-libgtkmm-3.0-dev:amd64
+libgtkmm-2.4-dev:amd64
