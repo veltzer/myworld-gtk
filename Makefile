@@ -17,8 +17,7 @@ DO_ALLDEP:=1
 ###############
 ALL:=
 TOOLS=tools.stamp
-EXTRA_COMPILE_CMDS:=$(shell pkg-config --cflags gtkmm-$(GTKMM_VERSION) sigc++-$(SIGCPP_VERSION))
-EXTRA_LINK_CMDS:=$(shell pkg-config --libs gtkmm-$(GTKMM_VERSION) sigc++-$(SIGCPP_VERSION))
+
 # silent stuff
 ifeq ($(DO_MKDBG),1)
 Q:=
@@ -52,11 +51,12 @@ $(TOOLS): config/deps.py packages.txt
 	$(Q)xargs -a packages.txt sudo apt-get install
 	$(Q)pymakehelper touch_mkdir $@
 
+# In the next receipe the flags need to be calculated on the command line because if they are calculated
+# above in the makefile that will be before the {gtkmm,sigc++} packages will be installed and so the flags
+# will not be calculated
 main.elf: main.cc
 	$(info doing [$@])
 	$(Q)g++ -I. $(shell pkg-config --cflags gtkmm-$(GTKMM_VERSION) sigc++-$(SIGCPP_VERSION)) $< -o $@ $(shell pkg-config --libs gtkmm-$(GTKMM_VERSION) sigc++-$(SIGCPP_VERSION)) 
-# to find all included header files...
-# $(Q)g++ -H -I. $(EXTRA_COMPILE_CMDS) $< -o $@ $(EXTRA_LINK_CMDS)
 
 .PHONY: debug
 debug:
