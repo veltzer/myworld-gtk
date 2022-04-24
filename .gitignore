@@ -1,5 +1,5 @@
 /*.elf
-/*.stamp
+*.stamp
 # python related
 __pycache__
 *.pyo

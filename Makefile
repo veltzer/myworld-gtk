@@ -15,9 +15,10 @@ DO_ALLDEP:=1
 ###############
 # definitions #
 ###############
+ALL:=
+TOOLS=tools.stamp
 EXTRA_COMPILE_CMDS:=$(shell pkg-config --cflags gtkmm-$(GTKMM_VERSION) sigc++-$(SIGCPP_VERSION))
 EXTRA_LINK_CMDS:=$(shell pkg-config --libs gtkmm-$(GTKMM_VERSION) sigc++-$(SIGCPP_VERSION))
-ALL:=main.elf
 # silent stuff
 ifeq ($(DO_MKDBG),1)
 Q:=
@@ -33,8 +34,11 @@ ifeq ($(DO_ALLDEP),1)
 endif
 
 ifeq ($(DO_TOOLS),1)
-.EXTRA_PREREQS+=tools.stamp
+.EXTRA_PREREQS+=$(TOOLS)
+ALL+=$(TOOLS)
 endif # DO_TOOLS
+
+ALL+=main.elf
 
 #########
 # rules #
@@ -43,8 +47,9 @@ endif # DO_TOOLS
 all: $(ALL)
 	@true
 
-tools.stamp: config/deps.py
+$(TOOLS): config/deps.py packages.txt
 	$(info doing [$@])
+	$(Q)xargs -a packages.txt sudo apt-get install
 	$(Q)pymakehelper touch_mkdir $@
 
 main.elf: main.cc
@@ -62,3 +67,8 @@ debug:
 clean:
 	$(info doing [$@])
 	$(Q)-rm -f main.elf
+
+.PHONY: clean_hard
+clean_hard:
+	$(info doing [$@])
+	$(Q)git clean -qffxd
