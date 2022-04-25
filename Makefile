@@ -46,7 +46,7 @@ ALL+=main.elf
 all: $(ALL)
 	@true
 
-$(TOOLS): config/deps.py packages.txt
+$(TOOLS): packages.txt config/deps.py
 	$(info doing [$@])
 	$(Q)xargs -a packages.txt sudo apt-get install
 	$(Q)pymakehelper touch_mkdir $@
