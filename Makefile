@@ -48,7 +48,7 @@ all: $(ALL)
 
 $(TOOLS): packages.txt config/deps.py
 	$(info doing [$@])
-	$(Q)xargs -a packages.txt sudo apt-get install
+	$(Q)xargs -a packages.txt sudo apt-get -y install
 	$(Q)pymakehelper touch_mkdir $@
 
 # In the next receipe the flags need to be calculated on the command line because if they are calculated
