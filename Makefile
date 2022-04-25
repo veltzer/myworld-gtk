@@ -30,7 +30,7 @@ endif # DO_MKDBG
 # dependency on the makefile itself
 ifeq ($(DO_ALLDEP),1)
 .EXTRA_PREREQS+=$(foreach mk, ${MAKEFILE_LIST},$(abspath ${mk}))
-endif
+endif # DO_ALLDEP
 
 ifeq ($(DO_TOOLS),1)
 .EXTRA_PREREQS+=$(TOOLS)
