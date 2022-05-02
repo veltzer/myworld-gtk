@@ -7,8 +7,6 @@ DO_MKDBG:=0
 GTKMM_VERSION:=3.0
 # version of sigcpp used
 SIGCPP_VERSION=2.0
-# do tools?
-DO_TOOLS:=1
 # do you want dependency on the Makefile itself ?
 DO_ALLDEP:=1
 
@@ -16,7 +14,6 @@ DO_ALLDEP:=1
 # definitions #
 ###############
 ALL:=
-TOOLS=tools.stamp
 
 # silent stuff
 ifeq ($(DO_MKDBG),1)
@@ -32,11 +29,6 @@ ifeq ($(DO_ALLDEP),1)
 .EXTRA_PREREQS+=$(foreach mk, ${MAKEFILE_LIST},$(abspath ${mk}))
 endif # DO_ALLDEP
 
-ifeq ($(DO_TOOLS),1)
-.EXTRA_PREREQS+=$(TOOLS)
-ALL+=$(TOOLS)
-endif # DO_TOOLS
-
 ALL+=main.elf
 
 #########
@@ -45,11 +37,6 @@ ALL+=main.elf
 .PHONY: all
 all: $(ALL)
 	@true
-
-$(TOOLS): packages.txt config/deps.py
-	$(info doing [$@])
-	$(Q)xargs -a packages.txt sudo apt-get -y install
-	$(Q)pymakehelper touch_mkdir $@
 
 # In the next receipe the flags need to be calculated on the command line because if they are calculated
 # above in the makefile that will be before the {gtkmm,sigc++} packages will be installed and so the flags
