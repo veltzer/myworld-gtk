@@ -10,9 +10,9 @@ SIGCPP_VERSION=2.0
 # do you want dependency on the Makefile itself ?
 DO_ALLDEP:=1
 
-###############
-# definitions #
-###############
+########
+# code #
+########
 ALL:=
 
 # silent stuff
