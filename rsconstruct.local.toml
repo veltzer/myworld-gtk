@@ -1,1 +1,18 @@
 # Repo-specific overlay. Deep-merged over the canonical rsconstruct.toml.
+
+# The Makefile compiled the GTK demo with
+# g++ -I. $(pkg-config --cflags gtkmm-3.0 sigc++-2.0) main.cc -o main.elf ...
+# scripts/build_gtk.py runs that (resolving the pkg-config flags at build time);
+# the explicit processor keys it on main.cc and declares main.elf. gtkmm is not
+# installed on this machine, so the build is CI-verified: the Makefile stays
+# until CI (which apt-installs libgtkmm-3.0-dev) confirms green, then it goes.
+[processor.explicit.gtk]
+command = "scripts/build_gtk.py"
+inputs = ["main.cc"]
+output_files = ["main.elf"]
+
+# gtkmm 3 and its pkg-config metadata for the demo.
+[dependencies]
+system = [
+    "libgtkmm-3.0-dev",
+]
