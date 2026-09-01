@@ -1,5 +1,4 @@
-# rsconstruct configuration for this repository — shared defaults plus
-# repo-specific config (merged from the former rsconstruct.local.toml).
+# rsconstruct build configuration for this repository.
 
 [analyzer.python]
 
@@ -15,7 +14,7 @@ src_dirs = ["scripts"]
 [processor.taplo]
 src_dirs = ["."]
 
-# ─── merged from rsconstruct.local.toml ─────────────────────────────────────
+# ─── repo-specific configuration ────────────────────────────────────────────
 
 # Compiles the GTK demo:
 # g++ -I. $(pkg-config --cflags gtkmm-3.0 sigc++-2.0) main.cc -o main.elf ...
