@@ -34,3 +34,18 @@ system = [
 # lint the GitHub Actions workflow files with actionlint
 [processor.actionlint]
 src_dirs = [".github/workflows"]
+
+# ─── markdown ────────────────────────────────────────────────────────────────
+
+[processor.rumdl]
+src_files = ["README.md"]
+
+# ─── c / c++ ─────────────────────────────────────────────────────────────────
+
+[processor.cppcheck]
+src_files = ["main.cc"]
+args = [
+	"--error-exitcode=1",
+	"--enable=warning,style,performance,portability",
+	"--inline-suppr",
+]
