@@ -53,11 +53,12 @@ src_files = ["README.md"]
 
 # ─── c / c++ ─────────────────────────────────────────────────────────────────
 
+# One program in one file (main.cc): the default one-run-per-file mode fits.
 [processor.checker.cppcheck]
 src_files = ["main.cc"]
 args = [
 	"--error-exitcode=1",
-	"--enable=warning,style,performance,portability",
+	"--enable=warning,style,performance,portability,information,unusedFunction",
 	"--check-level=exhaustive",
 	"--inline-suppr",
 ]
