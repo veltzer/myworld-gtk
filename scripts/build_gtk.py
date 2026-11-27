@@ -19,7 +19,7 @@ def pkg_config(flag):
 
 def main():
     """ main entry point """
-    cmd = (["g++", "-pedantic", "-I.", *pkg_config("--cflags"), "main.cc", "-o", "main.elf", *pkg_config("--libs")])
+    cmd = (["g++", "-Wall", "-Wextra", "-Werror", "-pedantic", "-I.", *pkg_config("--cflags"), "main.cc", "-o", "main.elf", *pkg_config("--libs")])
     sys.exit(subprocess.call(cmd))
 
 
