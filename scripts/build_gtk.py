@@ -11,7 +11,7 @@ import sys
 PACKAGES = ["gtkmm-3.0", "sigc++-2.0"]
 
 
-def pkg_config(flag):
+def pkg_config(flag: str) -> list[str]:
     """ Return the pkg-config flags for PACKAGES as a list. """
     out = subprocess.check_output(["pkg-config", flag, *PACKAGES], text=True)
     return out.split()
